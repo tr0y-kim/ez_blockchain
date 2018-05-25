@@ -16,6 +16,7 @@ class Blockchain(object):
 		block = {
 			'index': len(self.chain)+1,
 			'timestamp': time(), # timestamp from 1970
+			'transactions': self.current_transaction,
 			'proof': proof,
 			'previous_hash': previous_hash or self.hash(self.chain[-1])
 		}
@@ -24,7 +25,7 @@ class Blockchain(object):
 		return block
 
 	def new_transaction(self,sender,recipient,amount):
-		self.current_transactions.append(
+		self.current_transaction.append(
 			{
 				'sender' : sender,
 				'recipient' : recipient,
@@ -34,8 +35,8 @@ class Blockchain(object):
 		)
 	# directly access from class, share! not individual instance use it
 	@staticmethod
-	def hash(self, block):
-		block_string = json.dumps(block)
+	def hash(block):
+		block_string = json.dumps(block, sort_keys=True).encode()
 	
 		return hashlib.sha256(block_string).hexdigest()
 
