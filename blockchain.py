@@ -33,6 +33,8 @@ class Blockchain(object):
 				
 			}
 		)
+		return self.last_block['index'] + 1
+
 	# directly access from class, share! not individual instance use it
 	@staticmethod
 	def hash(block):
@@ -56,5 +58,3 @@ class Blockchain(object):
 		guess = str(last_proof + proof).encode()
 		guess_hash = hashlib.sha256(guess).hexdigest()
 		return guess_hash[:4] == "0000" # nonce
-
-	
