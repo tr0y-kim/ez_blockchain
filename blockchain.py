@@ -1,7 +1,7 @@
 import hashlib
 import json
 from time import time
-from urllib.parse import urlparse
+from urlparse import urlparse
 import requests
 
 ####### block generation & its principle
@@ -48,8 +48,8 @@ class Blockchain(object):
 		
 		while current_index < len(chain):
 			block = chain[current_index]
-			print(f'{last_block}')
-			print(f'{block}')
+			print('%s', % last_block)
+			print('%s', % block)
 			print("\n---------\n")
 			# check that the hash of the block is correct
 			if block['previous_hash'] != self.hash(last_block):
@@ -64,7 +64,8 @@ class Blockchain(object):
 
 		max_length = len(self.chain) # Our chain length
 		for node in neighbours:
-			response = requests.get(f'http://{node}/chain')
+			tmp_url = 'http://' + str(node) + '/chain'
+			response = requests.get(tmp_url)
 			if response.status_code == 200:
 				length = response.json()['length']
 				chain = response.json()['chain']
